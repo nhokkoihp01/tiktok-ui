@@ -10,18 +10,38 @@ import 'tippy.js/dist/tippy.css';
 import {Wrapper as PopperWrapper} from "~/components/Layout/Popper";
 import AccountItem from "~/components/Layout/components/AccountItem";
 import Button from "~/components/Button";
-import {AiOutlineLogin} from 'react-icons/ai';
+import {FaEllipsisV} from 'react-icons/fa'
+import Menu from "~/components/Layout/Popper/Menu";
+import {RiEnglishInput} from 'react-icons/ri';
+import {BiHelpCircle} from 'react-icons/bi';
+import {TbKeyboard} from 'react-icons/tb';
 
 
 const cx = classNames.bind(styles);
+const MENU_ITEMS = [
+    {
+        icon: <RiEnglishInput/>,
+        title: 'English',
+    },
+    {
+        icon: <BiHelpCircle/>,
+        title: 'Feedback and help',
+        to: '/feedback'
+    },
+    {
+        icon: <TbKeyboard/>,
+        title: 'Keyboards shortcuts',
+
+    },
+];
 
 function Header(props) {
 
-    const [searchResult, setSearchReuslt] = useState([]);
+    const [searchResult, setSearchResult] = useState([]);
 
     useEffect(() => {
         setTimeout(() => {
-            setSearchReuslt([])
+            setSearchResult([])
         }, 0)
     })
     return (
@@ -59,8 +79,13 @@ function Header(props) {
 
                 <div className={cx('action')}>
                     <Button text target='_blank'>Upload</Button>
-                    <Button  outline className={cx('customer-login')}
-                            onClick={() => alert('hello')} target='_blank'>Login</Button>
+                    <Button outline className={cx('customer-login')}
+                            target='_blank'>Login</Button>
+                    <Menu items={MENU_ITEMS}>
+                        <button className={cx('more-btn')}>
+                            <FaEllipsisV/>
+                        </button>
+                    </Menu>
 
                 </div>
 
