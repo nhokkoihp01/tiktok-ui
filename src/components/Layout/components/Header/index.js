@@ -22,6 +22,21 @@ const MENU_ITEMS = [
     {
         icon: <RiEnglishInput/>,
         title: 'English',
+        children: {
+            title: 'Language',
+            data: [
+                {
+                    type:'language',
+                    code: 'en',
+                    title: 'English'
+                },
+                {
+                    type:'language',
+                    code: 'vi',
+                    title: 'Tieng Viet'
+                },
+            ]
+        }
     },
     {
         icon: <BiHelpCircle/>,
@@ -34,6 +49,13 @@ const MENU_ITEMS = [
 
     },
 ];
+const handleMenuChange = (menuItem) => {
+    switch (menuItem.type){
+        case 'language':
+            break;
+        default:
+    }
+}
 
 function Header(props) {
 
@@ -81,7 +103,7 @@ function Header(props) {
                     <Button text target='_blank'>Upload</Button>
                     <Button outline className={cx('customer-login')}
                             target='_blank'>Login</Button>
-                    <Menu items={MENU_ITEMS}>
+                    <Menu items={MENU_ITEMS} onChange={handleMenuChange}>
                         <button className={cx('more-btn')}>
                             <FaEllipsisV/>
                         </button>
