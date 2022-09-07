@@ -14,8 +14,8 @@
   --default-layout-width: 1150px;
   --black-color: #000;
   --white-color: #fff;
-  --text-color: #333;
-  --default-layout-horizontal-spacer:24px;
+  --text-color: #161823;
+  --default-layout-horizontal-spacer: 24px;
 
 
 }
@@ -41,4 +41,18 @@ button, input, [tabindex] {
 a[href] {
   color: var(--text-color);
   text-decoration: none;
+}
+
+//customer antd tooltip
+body {
+  .ant-tooltip-inner {
+    background-color: rgba(84, 84, 84, 0.92);
+    border-radius: 8px;
+    color: rgb(255, 255, 255);
+    font-weight: 600;
+    padding: 8px;
+  }
+  .ant-tooltip-arrow-content {
+    --antd-arrow-background-color: rgba(84, 84, 84, 0.92);
+  }
 }

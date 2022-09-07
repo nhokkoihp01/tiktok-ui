@@ -108,12 +108,24 @@
 
 
 }
+//Action
 .action{
   display: flex;
   align-items: center;
+
+
 }
+
+
 .customer-login{
 
+}
+.avatar-user{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 22px;
+  cursor: pointer;
 }
 .more-btn{
   font-size: 2rem;
@@ -121,4 +133,18 @@
   color: rgba(0,0,0,0.4);
   background-color: transparent;
   padding: 4px 8px;
+
+
+}
+.btn-action{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.6rem;
+  background-color: transparent;
+  padding: 0 6px;
+  cursor: pointer;
+ svg{
+   font-weight: 400;
+ }
 }

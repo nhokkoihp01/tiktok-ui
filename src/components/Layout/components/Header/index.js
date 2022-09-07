@@ -13,8 +13,15 @@ import Button from "~/components/Button";
 import {FaEllipsisV} from 'react-icons/fa'
 import Menu from "~/components/Layout/Popper/Menu";
 import {RiEnglishInput} from 'react-icons/ri';
-import {BiHelpCircle} from 'react-icons/bi';
+import {BiHelpCircle, BiMessageMinus} from 'react-icons/bi';
 import {TbKeyboard} from 'react-icons/tb';
+import avatarImage from '../../../../assets/images/107175_circle_facebook_icon.png'
+import Avatar from "antd/es/avatar/avatar";
+import {BiPaperPlane,BiUser} from 'react-icons/bi'
+import {Badge, Tooltip} from "antd";
+import {AiOutlineSetting} from 'react-icons/ai';
+import {ImCoinPound} from 'react-icons/im';
+import {MdOutlineLogout} from 'react-icons/md';
 
 
 const cx = classNames.bind(styles);
@@ -26,12 +33,12 @@ const MENU_ITEMS = [
             title: 'Language',
             data: [
                 {
-                    type:'language',
+                    type: 'language',
                     code: 'en',
                     title: 'English'
                 },
                 {
-                    type:'language',
+                    type: 'language',
                     code: 'vi',
                     title: 'Tieng Viet'
                 },
@@ -50,16 +57,42 @@ const MENU_ITEMS = [
     },
 ];
 const handleMenuChange = (menuItem) => {
-    switch (menuItem.type){
+    switch (menuItem.type) {
         case 'language':
             break;
         default:
     }
 }
+const userMenu = [
+    {
+        icon: <BiUser/>,
+        title: 'View profile',
+        to: '/@hoaa'
+    },
+    {
+        icon: <ImCoinPound/>,
+        title: 'Get icon',
+        to: '/coin'
+    },
+    {
+        icon: <AiOutlineSetting/>,
+        title: 'Setting',
+        to: '/setting'
+    },
+    ...MENU_ITEMS,
+    {
+        icon: <MdOutlineLogout/>,
+        title: 'Logout',
+        to: '/feedback',
+        separate:true,
+    },
+]
+
 
 function Header(props) {
 
     const [searchResult, setSearchResult] = useState([]);
+    const currentUser = true;
 
     useEffect(() => {
         setTimeout(() => {
@@ -98,19 +131,60 @@ function Header(props) {
                         </button>
                     </div>
                 </Tippy>
-
                 <div className={cx('action')}>
-                    <Button text target='_blank'>Upload</Button>
-                    <Button outline className={cx('customer-login')}
-                            target='_blank'>Login</Button>
-                    <Menu items={MENU_ITEMS} onChange={handleMenuChange}>
-                        <button className={cx('more-btn')}>
-                            <FaEllipsisV/>
-                        </button>
+
+                    {
+                        currentUser ?
+                            (
+                                <>
+                                    <Button text>Upload</Button>
+                                    <Tooltip mouseLeaveDelay={0.05}
+                                             arrowPointAtCenter={true}
+                                             placement="bottom"
+                                             title='Message'>
+                                        <button className={cx('btn-action')}>
+                                            <BiPaperPlane/>
+                                        </button>
+                                    </Tooltip>
+                                    <Tooltip
+                                        mouseLeaveDelay={0.05}
+                                        arrowPointAtCenter={true}
+                                        placement="bottom"
+                                        title='inbox'>
+                                        <Badge count={1000}>
+                                            <button className={cx('btn-action')}>
+                                                <BiMessageMinus/>
+                                            </button>
+                                        </Badge>
+                                    </Tooltip>
+
+
+                                </>
+                            ) :
+                            (
+                                <>
+                                    <Button text>Upload</Button>
+                                    <Button outline className={cx('customer-login')}
+                                            target='_blank'>Login</Button>
+
+                                </>
+                            )
+                    }
+                    <Menu items={currentUser ? userMenu : MENU_ITEMS} onChange={handleMenuChange}>
+                        {currentUser ?
+                            (
+                                <div className={cx('avatar-user')}>
+                                    <Avatar size={32} src={avatarImage} />
+                                </div>
+                            ) :
+                            (
+                                <button className={cx('more-btn')}>
+                                    <FaEllipsisV/>
+                                </button>
+                            )
+                        }
                     </Menu>
-
                 </div>
-
 
             </div>
 
