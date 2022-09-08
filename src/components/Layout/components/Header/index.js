@@ -2,13 +2,7 @@ import React, {useEffect, useState} from 'react';
 import styles from './Header.module.scss';
 import classNames from "classnames/bind";
 import images from '~/assets/images';
-import {FiSearch} from 'react-icons/fi';
-import {IoIosCloseCircle} from 'react-icons/io';
-import {AiOutlineLoading3Quarters} from 'react-icons/ai';
-import Tippy from '@tippyjs/react/headless';
 import 'tippy.js/dist/tippy.css';
-import {Wrapper as PopperWrapper} from "~/components/Layout/Popper";
-import AccountItem from "~/components/Layout/components/AccountItem";
 import Button from "~/components/Button";
 import {FaEllipsisV} from 'react-icons/fa'
 import Menu from "~/components/Layout/Popper/Menu";
@@ -17,11 +11,14 @@ import {BiHelpCircle, BiMessageMinus} from 'react-icons/bi';
 import {TbKeyboard} from 'react-icons/tb';
 import avatarImage from '../../../../assets/images/107175_circle_facebook_icon.png'
 import Avatar from "antd/es/avatar/avatar";
-import {BiPaperPlane,BiUser} from 'react-icons/bi'
+import {BiPaperPlane, BiUser} from 'react-icons/bi'
 import {Badge, Tooltip} from "antd";
 import {AiOutlineSetting} from 'react-icons/ai';
 import {ImCoinPound} from 'react-icons/im';
 import {MdOutlineLogout} from 'react-icons/md';
+import {Link} from "react-router-dom";
+import routesConfig from "~/config/routes";
+import Search from "~/components/Layout/components/Search";
 
 
 const cx = classNames.bind(styles);
@@ -84,54 +81,28 @@ const userMenu = [
         icon: <MdOutlineLogout/>,
         title: 'Logout',
         to: '/feedback',
-        separate:true,
+        separate: true,
     },
 ]
 
 
 function Header(props) {
-
-    const [searchResult, setSearchResult] = useState([]);
     const currentUser = true;
-
-    useEffect(() => {
-        setTimeout(() => {
-            setSearchResult([])
-        }, 0)
-    })
     return (
         <header className={cx('wrapper')}>
             <div className={cx('inner')}>
                 <div className={cx('logo')}>
-                    <img src={images.logo} alt="tiktok"/>
+                    <Link to={routesConfig.home}>
+                        <img src={images.logo} alt="tiktok"/>
+                    </Link>
                 </div>
-                <Tippy
-                    interactive
-                    visible={searchResult.length > 0}
-                    render={attrs => (
-                        <div className={cx('search-result')} tabIndex="-1" {...attrs}>
-                            <PopperWrapper>
-                                <h4 className={cx('search-title')}>Account</h4>
-                                <AccountItem/>
-                                <AccountItem/>
-                                <AccountItem/>
-                                <AccountItem/>
-                            </PopperWrapper>
-                        </div>
-                    )}
-                >
-                    <div className={cx('search')}>
-                        <input type="text" placeholder='Search account and videos' spellCheck={false}/>
-                        <button className={cx('clear')}>
-                            <IoIosCloseCircle/>
-                        </button>
-                        <AiOutlineLoading3Quarters className={cx('loading')}/>
-                        <button className={cx('search-btn')}>
-                            <FiSearch/>
-                        </button>
-                    </div>
-                </Tippy>
+                {/*Begin Search*/}
+                <Search/>
+                {/*End Search*/}
+
+                {/*Begin Action*/}
                 <div className={cx('action')}>
+
 
                     {
                         currentUser ?
@@ -151,7 +122,9 @@ function Header(props) {
                                         arrowPointAtCenter={true}
                                         placement="bottom"
                                         title='inbox'>
-                                        <Badge count={1000}>
+                                        <Badge count={1000}
+                                               color={'#d73c55'}
+                                        >
                                             <button className={cx('btn-action')}>
                                                 <BiMessageMinus/>
                                             </button>
@@ -174,7 +147,7 @@ function Header(props) {
                         {currentUser ?
                             (
                                 <div className={cx('avatar-user')}>
-                                    <Avatar size={32} src={avatarImage} />
+                                    <Avatar size={32} src={avatarImage}/>
                                 </div>
                             ) :
                             (
@@ -185,6 +158,7 @@ function Header(props) {
                         }
                     </Menu>
                 </div>
+                {/*End Action*/}
 
             </div>
 
