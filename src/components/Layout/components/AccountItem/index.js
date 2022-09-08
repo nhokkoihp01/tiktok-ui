@@ -3,22 +3,23 @@ import classNames from "classnames/bind";
 import styles from './Account.module.scss';
 import {AiFillCheckCircle} from 'react-icons/ai';
 import Avatar from "antd/es/avatar/avatar";
+import {Link} from "react-router-dom";
 
 const cx = classNames.bind(styles);
 
-function Index(props) {
+function AccountItem({data}) {
     return (
-        <div className={cx('wrapper')}>
-            <Avatar shape="circle" size={40} src='https://tse4.mm.bing.net/th?id=OIP.Usyp7xWkY_dS8bExUS2X8AHaG4&pid=Api&P=0' />
+        <Link to={`/@${data.nickname}`} className={cx('wrapper')}>
+            <Avatar shape="circle" size={40} src={data.avatar} alt={data.full_name}/>
             <div className={cx('info')}>
                 <h4 className={cx('name')}>
-                    <span>Nguyen Van A</span>
-                    <AiFillCheckCircle className={cx('check-icon')}/>
+                    <span>{data.full_name}</span>
+                    {data.tick && (<AiFillCheckCircle className={cx('check-icon')}/>)}
                 </h4>
-                <span className={cx('username')}>nguyenvana</span>
+                <span className={cx('username')}>{data.nickname}</span>
             </div>
-        </div>
+        </Link>
     );
 }
 
-export default Index;
+export default AccountItem;

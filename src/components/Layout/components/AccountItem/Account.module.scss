@@ -3,8 +3,10 @@
   align-items: center;
   padding: 6px 16px;
   cursor: pointer;
+
   &:hover{
     background-color: rgba(22,24,35,0.03);
+    color: var(--text-color);
   }
 
 }

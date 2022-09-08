@@ -3,10 +3,10 @@ import Tippy from '@tippyjs/react/headless';
 import {Wrapper as PopperWrapper} from "~/components/Layout/Popper";
 import AccountItem from "~/components/Layout/components/AccountItem";
 import {IoIosCloseCircle} from "react-icons/io";
-import {AiOutlineLoading3Quarters} from "react-icons/ai";
 import classNames from "classnames/bind";
 import styles from "./Search.module.scss";
 import {SearchIcon} from "~/components/Icon/Icon";
+import {AiOutlineLoading3Quarters} from "react-icons/ai";
 
 const cx = classNames.bind(styles);
 
@@ -17,6 +17,7 @@ function Search(props) {
     }
     const [searchResult, setSearchResult] = useState([]);
     const [showResult, setShowResult] = useState(true);
+    const [loading, setLoading] = useState(false);
 
     const inputRef = useRef();
     const handleClear = () => {
@@ -28,10 +29,21 @@ function Search(props) {
         setShowResult(false);
     }
     useEffect(() => {
-        setTimeout(() => {
-            setSearchResult([1, 2, 3])
-        }, 0)
-    }, [])
+        if (!searchValue.trim()) {
+            setSearchResult([])
+            return;
+        }
+        setLoading(true);
+        fetch(`https://tiktok.fullstack.edu.vn/api/users/search?q=${encodeURIComponent(searchValue)}&type=less`)
+            .then(res => res.json())
+            .then(res => {
+                setSearchResult(res.data);
+                setLoading(false)
+            })
+            .catch(() => {
+                setLoading(false);
+            })
+    }, [searchValue])
     return (
         <Tippy
             interactive
@@ -41,10 +53,12 @@ function Search(props) {
                 <div className={cx('search-result')} tabIndex="-1" {...attrs}>
                     <PopperWrapper>
                         <h4 className={cx('search-title')}>Account</h4>
-                        <AccountItem/>
-                        <AccountItem/>
-                        <AccountItem/>
-                        <AccountItem/>
+                        {searchResult.map((result) => {
+                            return (
+                                <AccountItem key={result.id} data={result}/>
+                            )
+                        })}
+
                     </PopperWrapper>
                 </div>
             )}
@@ -58,7 +72,7 @@ function Search(props) {
                        ref={inputRef}
                        onFocus={() => setShowResult(true)}
                 />
-                {!!searchValue && (
+                {!!searchValue && !loading && (
                     <button className={cx('clear')}
                             onClick={handleClear}
 
@@ -66,7 +80,7 @@ function Search(props) {
                         <IoIosCloseCircle/>
                     </button>
                 )}
-                {/*<AiOutlineLoading3Quarters className={cx('loading')}/>*/}
+                {loading && (<AiOutlineLoading3Quarters className={cx('loading')}/>)}
                 <button className={cx('search-btn')}>
                     <SearchIcon/>
                 </button>
