@@ -16,8 +16,16 @@ const cx = classNames.bind(styles);
 
 function Search(props) {
     const [searchValue, setSearchValue] = useState('');
-    const handleInput = (e) => {
-        setSearchValue(e.target.value);
+    const handleChange = (e) => {
+        const searchValue = e.target.value;
+        if (!searchValue.startsWith(' ')) {
+            setSearchValue(searchValue);
+        }
+
+
+    }
+    const handleSubmit = (e) => {
+        e.preventDefault();
     }
     const [searchResult, setSearchResult] = useState([]);
     const [showResult, setShowResult] = useState(true);
@@ -70,7 +78,7 @@ function Search(props) {
                        placeholder='Search account and videos'
                        spellCheck={false}
                        value={searchValue}
-                       onChange={handleInput}
+                       onChange={handleChange}
                        ref={inputRef}
                        onFocus={() => setShowResult(true)}
                 />
@@ -83,7 +91,9 @@ function Search(props) {
                     </button>
                 )}
                 {loading && (<AiOutlineLoading3Quarters className={cx('loading')}/>)}
-                <button className={cx('search-btn')}>
+                <button className={cx('search-btn')}
+                        onMouseDown={handleSubmit}
+                >
                     <SearchIcon/>
                 </button>
             </div>
