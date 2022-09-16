@@ -55,49 +55,53 @@ function Search(props) {
 
     }, [debounced])
     return (
-        <Tippy
-            interactive
-            visible={showResult && searchResult.length > 0}
-            onClickOutside={handleHideResult}
-            render={attrs => (
-                <div className={cx('search-result')} tabIndex="-1" {...attrs}>
-                    <PopperWrapper>
-                        <h4 className={cx('search-title')}>Account</h4>
-                        {searchResult.map((result) => {
-                            return (
-                                <AccountItem key={result.id} data={result}/>
-                            )
-                        })}
+        //Using a wrapper <div> tag around the reference element solves
+        // this by creating a new parentNode context.
+       <div>
+           <Tippy
+               interactive
+               visible={showResult && searchResult.length > 0}
+               onClickOutside={handleHideResult}
+               render={attrs => (
+                   <div className={cx('search-result')} tabIndex="-1" {...attrs}>
+                       <PopperWrapper>
+                           <h4 className={cx('search-title')}>Account</h4>
+                           {searchResult.map((result) => {
+                               return (
+                                   <AccountItem key={result.id} data={result}/>
+                               )
+                           })}
 
-                    </PopperWrapper>
-                </div>
-            )}
-        >
-            <div className={cx('search')}>
-                <input type="text"
-                       placeholder='Search account and videos'
-                       spellCheck={false}
-                       value={searchValue}
-                       onChange={handleChange}
-                       ref={inputRef}
-                       onFocus={() => setShowResult(true)}
-                />
-                {!!searchValue && !loading && (
-                    <button className={cx('clear')}
-                            onClick={handleClear}
+                       </PopperWrapper>
+                   </div>
+               )}
+           >
+               <div className={cx('search')}>
+                   <input type="text"
+                          placeholder='Search account and videos'
+                          spellCheck={false}
+                          value={searchValue}
+                          onChange={handleChange}
+                          ref={inputRef}
+                          onFocus={() => setShowResult(true)}
+                   />
+                   {!!searchValue && !loading && (
+                       <button className={cx('clear')}
+                               onClick={handleClear}
 
-                    >
-                        <IoIosCloseCircle/>
-                    </button>
-                )}
-                {loading && (<AiOutlineLoading3Quarters className={cx('loading')}/>)}
-                <button className={cx('search-btn')}
-                        onMouseDown={handleSubmit}
-                >
-                    <SearchIcon/>
-                </button>
-            </div>
-        </Tippy>
+                       >
+                           <IoIosCloseCircle/>
+                       </button>
+                   )}
+                   {loading && (<AiOutlineLoading3Quarters className={cx('loading')}/>)}
+                   <button className={cx('search-btn')}
+                           onMouseDown={handleSubmit}
+                   >
+                       <SearchIcon/>
+                   </button>
+               </div>
+           </Tippy>
+       </div>
     );
 }
 
