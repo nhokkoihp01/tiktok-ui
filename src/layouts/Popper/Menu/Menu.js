@@ -16,6 +16,12 @@ const defaultFn = () => {
 function Menu({children, items = [], hideOnClick = false, onChange = defaultFn}) {
     const [history, setHistory] = useState([{data: items}]);
     const current = history[history.length - 1];
+    const handleResetToFirst = () => {
+        setHistory(prevState => prevState.slice(0, 1))
+    }
+    const handleBack = () => {
+        setHistory(prev => prev.slice(0, prev.length - 1)) // cat phan tu so 0 den gan cuoi
+    }
     const renderItems = () => {
         return (current.data.map((item, index) => {
                 const isParent = !!item.children;// !!convert to true
@@ -43,9 +49,7 @@ function Menu({children, items = [], hideOnClick = false, onChange = defaultFn})
             <PopperWrapper className={cx('menu-popper')}>
                 {history.length > 1 && <Header
                     title={current.title}
-                    onBack={() => {
-                        setHistory(prev => prev.slice(0, prev.length - 1)) // cat phan tu so 0 den gan cuoi
-                    }}
+                    onBack={handleBack}
                 />}
                 <div className={cx('menu-body')}>
                     {renderItems()}
@@ -53,12 +57,13 @@ function Menu({children, items = [], hideOnClick = false, onChange = defaultFn})
 
             </PopperWrapper>
         </div>)}
-        onHide={() => setHistory(prevState => prevState.slice(0, 1))}
+        onHide={handleResetToFirst}
 
     >
         {children}
     </Tippy>);
 }
+
 Menu.prototype = {
     children: PropTypes.node.isRequired,
     items: PropTypes.array,

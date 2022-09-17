@@ -90,7 +90,7 @@ const userMenu = [
 
 
 function Header(props) {
-    const currentUser = true;
+    const currentUser = false;
     return (
         <header className={cx('wrapper')}>
             <div className={cx('inner')}>
@@ -139,8 +139,8 @@ function Header(props) {
                             ) :
                             (
                                 <>
-                                    <Button text>Upload</Button>
-                                    <Button outline className={cx('customer-login')}
+                                    <Button  text>Upload</Button>
+                                    <Button  outline className={cx('customer-login')}
                                             target='_blank'>Login</Button>
 
                                 </>
