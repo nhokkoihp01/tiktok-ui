@@ -1,9 +1,12 @@
 import React from 'react';
 import classNames from "classnames/bind";
+import PropTypes from 'prop-types';
+import Avatar from "antd/es/avatar/avatar";
+
 import styles from './Account.module.scss';
 import {AiFillCheckCircle} from 'react-icons/ai';
-import Avatar from "antd/es/avatar/avatar";
-import {Link} from "react-router-dom";
+import {Link} from "react-router-dom"
+
 
 const cx = classNames.bind(styles);
 
@@ -20,6 +23,10 @@ function AccountItem({data}) {
             </div>
         </Link>
     );
+
+    AccountItem.prototype = {
+        data: PropTypes.object.isRequired
+    }
 }
 
 export default AccountItem;

@@ -1,4 +1,5 @@
 import classNames from "classnames/bind";
+import PropTypes from "prop-types";
 import styles from './Menu.module.scss';
 import {RiArrowLeftSLine} from 'react-icons/ri';
 
@@ -20,6 +21,11 @@ function Header({title, onBack }) {
         </header>
 
     );
+}
+Header.prototype = {
+    title: PropTypes.string.isRequired,
+    onBack: PropTypes.func.isRequired,
+
 }
 
 export default Header;

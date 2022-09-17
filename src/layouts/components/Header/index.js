@@ -1,4 +1,3 @@
-import React, {useEffect, useState} from 'react';
 import styles from './Header.module.scss';
 import classNames from "classnames/bind";
 import images from '~/assets/images';
