@@ -6,6 +6,7 @@ import Search from "~/pages/Search";
 import config from "~/config";
 import {HeaderOnly} from "~/layouts";
 import Home from "~/pages/Home";
+import Live from "~/pages/Live";
 
 
 //public routes
@@ -15,6 +16,7 @@ const publicRoutes = [
     {path: config.routes.profile, component: Profile},
     {path: config.routes.upload, component: Upload, layout: HeaderOnly},
     {path: config.routes.search, component: Search, layout: null},
+    {path: config.routes.live, component: Live},
 
 
 ]
