@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+
 import styles from './Header.module.scss';
 import classNames from "classnames/bind";
 import images from '~/assets/images';
@@ -16,7 +16,7 @@ import {AiOutlineSetting} from 'react-icons/ai';
 import {ImCoinPound} from 'react-icons/im';
 import {MdOutlineLogout} from 'react-icons/md';
 import {Link} from "react-router-dom";
-import routesConfig from "~/config/routes";
+import config from "~/config";
 import Search from "~/layouts/components/Search";
 import Menu from "~/layouts/Popper/Menu";
 
@@ -96,7 +96,7 @@ function Header(props) {
         <header className={cx('wrapper')}>
             <div className={cx('inner')}>
                 <div className={cx('logo')}>
-                    <Link to={routesConfig.home}>
+                    <Link to={config.routes.home}>
                         <img src={images.logo} alt="tiktok"/>
                     </Link>
                 </div>
