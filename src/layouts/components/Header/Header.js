@@ -1,4 +1,3 @@
-import React, {useEffect, useState} from 'react';
 import styles from './Header.module.scss';
 import classNames from "classnames/bind";
 import images from '~/assets/images';
@@ -91,7 +90,7 @@ const userMenu = [
 
 
 function Header(props) {
-    const currentUser = true;
+    const currentUser = false;
     return (
         <header className={cx('wrapper')}>
             <div className={cx('inner')}>
@@ -140,8 +139,8 @@ function Header(props) {
                             ) :
                             (
                                 <>
-                                    <Button text>Upload</Button>
-                                    <Button outline className={cx('customer-login')}
+                                    <Button  text>Upload</Button>
+                                    <Button  outline className={cx('customer-login')}
                                             target='_blank'>Login</Button>
 
                                 </>
