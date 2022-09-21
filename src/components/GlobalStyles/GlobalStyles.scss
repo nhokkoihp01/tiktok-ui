@@ -92,6 +92,9 @@ a[href]{
   color: var(--text-color);
   text-decoration: none;
 }
+p{
+  margin-bottom: 0;
+}
 
 //customer antd tooltip
 body {
@@ -107,3 +110,4 @@ body {
     --antd-arrow-background-color: rgba(84, 84, 84, 0.92);
   }
 }
+
